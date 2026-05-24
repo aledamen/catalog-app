@@ -1,0 +1,7 @@
+<svg width="800" height="640" viewBox="0 0 800 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="640" fill="#0A0A0A"/>
+  <rect x="208" y="148" width="384" height="344" stroke="#2CC8E0" stroke-width="2"/>
+  <path d="M280 400L370 308L440 368L520 280L592 400" stroke="#2CC8E0" stroke-width="2"/>
+  <circle cx="334" cy="250" r="26" stroke="#2CC8E0" stroke-width="2"/>
+  <text x="400" y="538" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="24" text-anchor="middle" letter-spacing="6">FASE-BETA</text>
+</svg>

@@ -1,0 +1,401 @@
+[
+  {
+    "id": "creatina-star-150g",
+    "name": "Creatina Monohidratada",
+    "brand": "Star Nutrition",
+    "category": "Creatinas",
+    "image": "/products/STCREAT150P.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STCREAT150P",
+        "size": "150g",
+        "flavor": "Sin sabor",
+        "priceEffective": 14170,
+        "priceTransfer": 14620,
+        "priceList": 16430,
+        "image": "/products/STCREAT150P.webp"
+      }
+    ]
+  },
+  {
+    "id": "creatina-star-300g",
+    "name": "Creatina Monohidratada",
+    "brand": "Star Nutrition",
+    "category": "Creatinas",
+    "image": "/products/STCREAT300B.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STCREAT300B",
+        "size": "300g",
+        "flavor": "Sin sabor",
+        "priceEffective": 21950,
+        "priceTransfer": 22650,
+        "priceList": 25460,
+        "image": "/products/STCREAT300B.webp"
+      },
+      {
+        "sku": "STCREATFR300B",
+        "size": "300g",
+        "flavor": "Frutos Rojos",
+        "priceEffective": 21950,
+        "priceTransfer": 22650,
+        "priceList": 25460,
+        "image": "/products/STCREATFR300B.webp"
+      }
+    ]
+  },
+  {
+    "id": "creatina-star-500g",
+    "name": "Creatina Monohidratada",
+    "brand": "Star Nutrition",
+    "category": "Creatinas",
+    "image": "/products/STCREAT500P.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STCREAT500P",
+        "size": "500g",
+        "flavor": "Sin sabor",
+        "priceEffective": 42330,
+        "priceTransfer": 43690,
+        "priceList": 49110,
+        "image": "/products/STCREAT500P.webp"
+      }
+    ]
+  },
+  {
+    "id": "creatina-star-1000g",
+    "name": "Creatina Monohidratada",
+    "brand": "Star Nutrition",
+    "category": "Creatinas",
+    "image": "/products/STCREAT1000P.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STCREAT1000P",
+        "size": "1000g",
+        "flavor": "Sin sabor",
+        "priceEffective": 71950,
+        "priceTransfer": 74250,
+        "priceList": 83460,
+        "image": "/products/STCREAT1000P.webp"
+      }
+    ]
+  },
+  {
+    "id": "proteina-whey-2lb",
+    "name": "Proteína Whey",
+    "brand": "Star Nutrition",
+    "category": "Proteínas",
+    "image": "/products/STPROTC2B.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STPROTC2B",
+        "size": "2lb",
+        "flavor": "Chocolate",
+        "priceEffective": 49560,
+        "priceTransfer": 51150,
+        "priceList": 57490,
+        "image": "/products/STPROTC2B.webp"
+      },
+      {
+        "sku": "STPROTCNC2B",
+        "size": "2lb",
+        "flavor": "Cookies & Cream",
+        "priceEffective": 49560,
+        "priceTransfer": 51150,
+        "priceList": 57490,
+        "image": "/products/STPROTCNC2B.webp"
+      },
+      {
+        "sku": "STPROTF2B",
+        "size": "2lb",
+        "flavor": "Frutilla",
+        "priceEffective": 49560,
+        "priceTransfer": 51150,
+        "priceList": 57490,
+        "image": "/products/STPROTF2B.webp"
+      },
+      {
+        "sku": "STPROTV2B",
+        "size": "2lb",
+        "flavor": "Vainilla",
+        "priceEffective": 49560,
+        "priceTransfer": 51150,
+        "priceList": 57490,
+        "image": "/products/STPROTV2B.webp"
+      },
+      {
+        "sku": "STPROTB2B",
+        "size": "2lb",
+        "flavor": "Banana",
+        "priceEffective": 49560,
+        "priceTransfer": 51150,
+        "priceList": 57490,
+        "image": "/products/STPROTB2B.webp"
+      }
+    ]
+  },
+  {
+    "id": "proteina-whey-3000g",
+    "name": "Proteína Whey",
+    "brand": "Star Nutrition",
+    "category": "Proteínas",
+    "image": "/products/STPROTC3000B.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STPROTC3000B",
+        "size": "3000g",
+        "flavor": "Chocolate",
+        "priceEffective": 164120,
+        "priceTransfer": 169380,
+        "priceList": 190380,
+        "image": "/products/STPROTC3000B.webp"
+      },
+      {
+        "sku": "STPROTCNC3000B",
+        "size": "3000g",
+        "flavor": "Cookies & Cream",
+        "priceEffective": 164120,
+        "priceTransfer": 169380,
+        "priceList": 190380,
+        "image": "/products/STPROTCNC3000B.webp"
+      },
+      {
+        "sku": "STPROTF3000B",
+        "size": "3000g",
+        "flavor": "Frutilla",
+        "priceEffective": 164120,
+        "priceTransfer": 169380,
+        "priceList": 190380,
+        "image": "/products/STPROTF3000B.webp"
+      },
+      {
+        "sku": "STPROTV3000B",
+        "size": "3000g",
+        "flavor": "Vainilla",
+        "priceEffective": 164120,
+        "priceTransfer": 169380,
+        "priceList": 190380,
+        "image": "/products/STPROTV3000B.webp"
+      }
+    ]
+  },
+  {
+    "id": "magnesio",
+    "name": "Magnesio",
+    "brand": "Star Nutrition",
+    "category": "Bienestar",
+    "image": "/products/STMAGN500P.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STMAGN500P",
+        "size": "500g",
+        "flavor": "Sin sabor",
+        "priceEffective": 27970,
+        "priceTransfer": 28870,
+        "priceList": 32450,
+        "image": "/products/STMAGN500P.webp"
+      },
+      {
+        "sku": "STMAGNFR500P",
+        "size": "500g",
+        "flavor": "Frutos Rojos",
+        "priceEffective": 27970,
+        "priceTransfer": 28870,
+        "priceList": 32450,
+        "image": "/products/STMAGNFR500P.webp"
+      }
+    ]
+  },
+  {
+    "id": "omega3",
+    "name": "Omega 3 Fish Oil",
+    "brand": "Star Nutrition",
+    "category": "Bienestar",
+    "image": "/products/STO3FISH60P.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STO3FISH60P",
+        "size": "60 caps",
+        "priceEffective": 29799,
+        "priceTransfer": 30760,
+        "priceList": 34570,
+        "image": "/products/STO3FISH60P.webp"
+      }
+    ]
+  },
+  {
+    "id": "colageno",
+    "name": "Colágeno Hidrolizado",
+    "brand": "Star Nutrition",
+    "category": "Bienestar",
+    "image": "/products/STCOLHFR210P.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STCOLHFR210P",
+        "size": "210g",
+        "flavor": "Frutos Rojos",
+        "priceEffective": 17170,
+        "priceTransfer": 17720,
+        "priceList": 19910,
+        "image": "/products/STCOLHFR210P.webp"
+      },
+      {
+        "sku": "STCOLHL210P",
+        "size": "210g",
+        "flavor": "Limón",
+        "priceEffective": 17170,
+        "priceTransfer": 17720,
+        "priceList": 19910,
+        "image": "/products/STCOLHL210P.webp"
+      }
+    ]
+  },
+  {
+    "id": "pump-v8",
+    "name": "PUMP V8",
+    "brand": "Star Nutrition",
+    "category": "Pre-workout",
+    "image": "/products/STPMPV8A285P.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STPMPV8A285P",
+        "size": "285g",
+        "flavor": "Açaí",
+        "priceEffective": 29420,
+        "priceTransfer": 30360,
+        "priceList": 34130,
+        "image": "/products/STPMPV8A285P.webp"
+      },
+      {
+        "sku": "STPMPV8G285P",
+        "size": "285g",
+        "flavor": "Grape",
+        "priceEffective": 29420,
+        "priceTransfer": 30360,
+        "priceList": 34130,
+        "image": "/products/STPMPV8G285P.webp"
+      },
+      {
+        "sku": "STPMPV8LL285P",
+        "size": "285g",
+        "flavor": "Lima Limón",
+        "priceEffective": 29420,
+        "priceTransfer": 30360,
+        "priceList": 34130,
+        "image": "/products/STPMPV8LL285P.webp"
+      },
+      {
+        "sku": "STPMPV8W285P",
+        "size": "285g",
+        "flavor": "Watermelon",
+        "priceEffective": 29420,
+        "priceTransfer": 30360,
+        "priceList": 34130,
+        "image": "/products/STPMPV8W285P.webp"
+      }
+    ]
+  },
+  {
+    "id": "pump-3d",
+    "name": "PUMP 3D Ripped",
+    "brand": "Star Nutrition",
+    "category": "Pre-workout",
+    "image": "/products/ST3DRIPL315P.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "ST3DRIPL315P",
+        "size": "315g",
+        "flavor": "Lemonade",
+        "priceEffective": 34980,
+        "priceTransfer": 36099,
+        "priceList": 40580,
+        "image": "/products/ST3DRIPL315P.webp"
+      },
+      {
+        "sku": "ST3DRIPSL315P",
+        "size": "315g",
+        "flavor": "Strawberry Lime",
+        "priceEffective": 34980,
+        "priceTransfer": 36099,
+        "priceList": 40580,
+        "image": "/products/ST3DRIPSL315P.webp"
+      }
+    ]
+  },
+  {
+    "id": "cafeina",
+    "name": "Cafeína 200mg",
+    "brand": "Star Nutrition",
+    "category": "Pre-workout",
+    "image": "/products/STCAFE20030P.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "STCAFE20030P",
+        "size": "30 caps",
+        "priceEffective": 7450,
+        "priceTransfer": 7690,
+        "priceList": 8640,
+        "image": "/products/STCAFE20030P.webp"
+      }
+    ]
+  },
+  {
+    "id": "shakers-nyc",
+    "name": "Shaker Everlast NYC",
+    "brand": "Everlast",
+    "category": "Accesorios",
+    "image": "/products/EVSHAKNYCR1500.webp",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "EVSHAKNYCR1500",
+        "size": "500ml",
+        "color": "Rosa NYC",
+        "priceEffective": 13090,
+        "priceTransfer": 13510,
+        "priceList": 15180,
+        "image": "/products/EVSHAKNYCR1500.webp"
+      },
+      {
+        "sku": "EVSHAKNYCG1500",
+        "size": "500ml",
+        "color": "Gris NYC",
+        "priceEffective": 13090,
+        "priceTransfer": 13510,
+        "priceList": 15180,
+        "image": "/products/EVSHAKNYCG1500.webp"
+      }
+    ]
+  },
+  {
+    "id": "shaker-azul",
+    "name": "Shaker Everlast",
+    "brand": "Everlast",
+    "category": "Accesorios",
+    "image": "/products/EVSHAKA2450.jpg",
+    "visible": true,
+    "variants": [
+      {
+        "sku": "EVSHAKA2450",
+        "size": "450ml",
+        "color": "Azul",
+        "priceEffective": 15090,
+        "priceTransfer": 15570,
+        "priceList": 17499,
+        "image": "/products/EVSHAKA2450.jpg"
+      }
+    ]
+  }
+]
