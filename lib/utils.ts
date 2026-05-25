@@ -9,7 +9,7 @@ export function formatPrice(value: number) {
 }
 
 export function getVariantLabel(variant: ProductVariant) {
-  return [variant.size, variant.flavor, variant.color].filter(Boolean).join(" · ");
+  return [variant.flavor, variant.color].filter(Boolean).join(" · ");
 }
 
 export function getPriceTotals(items: Array<{

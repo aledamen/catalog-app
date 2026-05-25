@@ -66,25 +66,29 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
 
-        <div className="mt-5">
-          <VariantSelector
-            selectedSku={selectedSku}
-            setSelectedSku={setSelectedSku}
-            variants={product.variants}
-          />
-        </div>
+        {product.variants.length > 1 && (
+          <div className="mt-5">
+            <VariantSelector
+              selectedSku={selectedSku}
+              setSelectedSku={setSelectedSku}
+              variants={product.variants}
+            />
+          </div>
+        )}
 
         <div className="mt-5 grid gap-3 border-t border-zinc-200 pt-4 text-sm text-zinc-600 sm:grid-cols-2">
           <div>
             <p className="text-xs uppercase tracking-[0.24em] text-zinc-500">SKU</p>
             <p className="mt-2 font-medium text-ink">{selectedVariant.sku}</p>
           </div>
-          <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-zinc-500">
-              Variante
-            </p>
-            <p className="mt-2 font-medium text-ink">{variantLabel}</p>
-          </div>
+          {variantLabel && (
+            <div>
+              <p className="text-xs uppercase tracking-[0.24em] text-zinc-500">
+                Variante
+              </p>
+              <p className="mt-2 font-medium text-ink">{variantLabel}</p>
+            </div>
+          )}
         </div>
 
         <div className="mt-5 space-y-3 rounded-xl border border-accent/20 bg-accent/5 p-4 text-sm">
