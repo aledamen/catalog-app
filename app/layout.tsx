@@ -44,6 +44,8 @@ export default async function RootLayout({
           :root {
             --brand-accent: ${config.accent_color};
             --brand-accent-deep: ${config.accent_deep_color};
+            --header-bg: ${config.header_bg};
+            --header-text: ${config.header_text_color};
           }
         `}</style>
       </head>
@@ -56,7 +58,7 @@ export default async function RootLayout({
             {config.announcement_text}
           </div>
         )}
-        <AppFrame>{children}</AppFrame>
+        <AppFrame config={config}>{children}</AppFrame>
       </body>
     </html>
   );

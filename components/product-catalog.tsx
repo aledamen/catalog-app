@@ -26,6 +26,9 @@ function hasStock(product: Product): boolean {
 
 function sortProducts(products: Product[], sort: SortOption): Product[] {
   return [...products].sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+
     const aStock = hasStock(a);
     const bStock = hasStock(b);
     if (aStock && !bStock) return -1;

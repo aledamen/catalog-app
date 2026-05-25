@@ -1,5 +1,6 @@
 import { ProductCatalog } from "@/components/product-catalog";
 import { getProducts } from "@/lib/products";
+import { getSiteConfig } from "@/lib/site-config";
 import { trackView } from "@/lib/track";
 
 export const metadata = {
@@ -8,21 +9,25 @@ export const metadata = {
 
 export default async function CatalogPage() {
   trackView('/catalogo')
-  const products = await getProducts();
+  const [products, config] = await Promise.all([getProducts(), getSiteConfig()])
 
   return (
     <div className="pb-16">
       <div className="border-b border-line bg-gradient-to-br from-accent/[0.06] via-white to-white">
         <div className="container-shell py-10 sm:py-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent-deep">
-            Catálogo completo
-          </p>
+          {config.hero_overline && (
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent-deep">
+              {config.hero_overline}
+            </p>
+          )}
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-            Todo lo que necesitás.
+            {config.hero_title}
           </h1>
-          <p className="mt-2 max-w-lg text-sm text-zinc-500">
-            Elegí los productos, armá tu carrito y enviá el pedido por WhatsApp en segundos.
-          </p>
+          {config.hero_subtitle && (
+            <p className="mt-2 max-w-lg text-sm text-zinc-500">
+              {config.hero_subtitle}
+            </p>
+          )}
         </div>
       </div>
 

@@ -34,6 +34,11 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <article className="panel flex h-full flex-col overflow-hidden transition-all duration-300 hover:shadow-panel-hover hover:-translate-y-0.5">
       <div className="relative aspect-[5/4] border-b border-zinc-200 bg-mist">
+        {product.featured && (
+          <span className="absolute top-3 right-3 z-10 rounded-full bg-ink px-2.5 py-1 text-xs font-semibold text-white">
+            ★ Destacado
+          </span>
+        )}
         {product.badge && (
           <span className="absolute top-3 left-3 z-10 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-white">
             {product.badge}
