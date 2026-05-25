@@ -1,11 +1,13 @@
 import { ProductCatalog } from "@/components/product-catalog";
 import { getProducts } from "@/lib/products";
+import { trackView } from "@/lib/track";
 
 export const metadata = {
   title: "Catalogo"
 };
 
 export default async function CatalogPage() {
+  trackView('/catalogo')
   const products = await getProducts();
 
   return (

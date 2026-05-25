@@ -11,6 +11,8 @@ type ApiVariant = {
   priceTransfer: number | null;
   priceList: number | null;
   image: string | null;
+  promoPrice: number | null;
+  promoLabel: string | null;
 };
 
 type ApiProduct = {
@@ -20,7 +22,15 @@ type ApiProduct = {
   category: string | null;
   image: string | null;
   visible: boolean;
+  salesCount: number;
   variants: ApiVariant[];
+  description: string | null;
+  badge: string | null;
+  featured: boolean;
+  bannerName: string | null;
+  bannerColor: string | null;
+  bannerTextColor: string | null;
+  bannerPosition: string | null;
 };
 
 export async function getProducts(): Promise<Product[]> {
@@ -38,6 +48,14 @@ export async function getProducts(): Promise<Product[]> {
     category: p.category ?? "",
     image: p.image ?? "",
     visible: p.visible,
+    salesCount: p.salesCount ?? 0,
+    ...(p.description ? { description: p.description } : {}),
+    ...(p.badge ? { badge: p.badge } : {}),
+    ...(p.featured ? { featured: p.featured } : {}),
+    ...(p.bannerName ? { bannerName: p.bannerName } : {}),
+    ...(p.bannerColor ? { bannerColor: p.bannerColor } : {}),
+    ...(p.bannerTextColor ? { bannerTextColor: p.bannerTextColor } : {}),
+    ...(p.bannerPosition ? { bannerPosition: p.bannerPosition } : {}),
     variants: p.variants.map((v): ProductVariant => ({
       sku: v.sku,
       stock: v.stock,
@@ -49,6 +67,8 @@ export async function getProducts(): Promise<Product[]> {
       ...(p.category === "Accesorios"
         ? { color: v.flavor ?? "" }
         : { flavor: v.flavor ?? "" }),
+      ...(v.promoPrice ? { promoPrice: v.promoPrice } : {}),
+      ...(v.promoLabel ? { promoLabel: v.promoLabel } : {}),
     })),
   }));
 }

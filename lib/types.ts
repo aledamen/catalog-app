@@ -8,6 +8,8 @@ export type ProductVariant = {
   priceTransfer: number;
   priceList: number;
   image?: string;
+  promoPrice?: number;
+  promoLabel?: string;
 };
 
 export type Product = {
@@ -17,7 +19,15 @@ export type Product = {
   category: string;
   image: string;
   visible: boolean;
+  salesCount: number;
   variants: ProductVariant[];
+  description?: string;
+  badge?: string;
+  featured?: boolean;
+  bannerName?: string;
+  bannerColor?: string;
+  bannerTextColor?: string;
+  bannerPosition?: string;
 };
 
 export type CartItem = {

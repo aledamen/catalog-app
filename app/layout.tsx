@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { AppFrame } from "@/components/app-frame";
+import { getSiteConfig } from "@/lib/site-config";
 
 const font = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -29,14 +30,32 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const config = await getSiteConfig()
+
   return (
     <html lang="es">
+      <head>
+        <style>{`
+          :root {
+            --brand-accent: ${config.accent_color};
+            --brand-accent-deep: ${config.accent_deep_color};
+          }
+        `}</style>
+      </head>
       <body className={font.className}>
+        {config.announcement_enabled === 'true' && config.announcement_text && (
+          <div
+            style={{ backgroundColor: config.announcement_bg, color: config.announcement_text_color }}
+            className="w-full py-2 text-center text-sm font-medium"
+          >
+            {config.announcement_text}
+          </div>
+        )}
         <AppFrame>{children}</AppFrame>
       </body>
     </html>
