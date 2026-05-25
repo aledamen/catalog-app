@@ -66,15 +66,22 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
 
-        {product.variants.length > 1 && (
-          <div className="mt-5">
+        <div className="mt-5">
+          {product.variants.length > 1 ? (
             <VariantSelector
               selectedSku={selectedSku}
               setSelectedSku={setSelectedSku}
               variants={product.variants}
             />
-          </div>
-        )}
+          ) : (
+            <div>
+              <p className="mb-2 text-xs uppercase tracking-[0.24em] text-zinc-500">Variante</p>
+              <div className="flex h-12 w-full items-center rounded-lg border border-zinc-200 bg-zinc-50 px-4 text-sm text-zinc-400">
+                {variantLabel || "Sin sabor"}
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className="mt-5 grid gap-3 border-t border-zinc-200 pt-4 text-sm text-zinc-600 sm:grid-cols-2">
           <div>
