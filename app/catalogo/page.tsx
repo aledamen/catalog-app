@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 export default async function CatalogPage() {
-  trackView('/catalogo')
+  await trackView('/catalogo')
   const [products, config] = await Promise.all([getProducts(), getSiteConfig()])
 
   return (
