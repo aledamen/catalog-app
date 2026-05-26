@@ -40,7 +40,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </span>
         )}
         {product.badge && (
-          <span className="absolute top-3 left-3 z-10 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-white">
+          <span className="absolute top-3 left-3 z-20 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-white">
             {product.badge}
           </span>
         )}
@@ -112,13 +112,13 @@ export function ProductCard({ product }: ProductCardProps) {
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-4">
-          <div>
+          <div className="w-full">
             <p className="section-label">{product.brand}</p>
             <h2 className="mt-2 text-xl font-bold tracking-tight text-ink">{product.name}</h2>
             <p className="mt-1 text-sm text-zinc-500">{product.category}</p>
-            {product.description && (
-              <p className="mt-2 text-sm text-zinc-500 line-clamp-2">{product.description}</p>
-            )}
+            <p className="mt-2 text-sm text-zinc-500 line-clamp-2 min-h-[2.5rem]">
+              {product.description ?? ''}
+            </p>
           </div>
         </div>
 
@@ -135,21 +135,6 @@ export function ProductCard({ product }: ProductCardProps) {
               <div className="flex h-12 w-full items-center rounded-lg border border-zinc-200 bg-zinc-50 px-4 text-sm text-zinc-400">
                 {variantLabel || "Sin sabor"}
               </div>
-            </div>
-          )}
-        </div>
-
-        <div className="mt-5 grid gap-3 border-t border-zinc-200 pt-4 text-sm text-zinc-600 sm:grid-cols-2">
-          <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-zinc-500">SKU</p>
-            <p className="mt-2 font-medium text-ink">{selectedVariant.sku}</p>
-          </div>
-          {variantLabel && (
-            <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-zinc-500">
-                Variante
-              </p>
-              <p className="mt-2 font-medium text-ink">{variantLabel}</p>
             </div>
           )}
         </div>
