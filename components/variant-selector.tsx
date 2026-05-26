@@ -12,6 +12,9 @@ export function VariantSelector({
   selectedSku,
   setSelectedSku
 }: VariantSelectorProps) {
+  const stockedVariants = variants.filter(v => v.stock > 0);
+  const displayVariants = stockedVariants.length > 0 ? stockedVariants : variants;
+
   return (
     <div>
       <label
@@ -26,9 +29,9 @@ export function VariantSelector({
         value={selectedSku}
         onChange={(event) => setSelectedSku(event.target.value)}
       >
-        {variants.map((variant) => (
+        {displayVariants.map((variant) => (
           <option key={variant.sku} value={variant.sku}>
-            {getVariantLabel(variant) || 'Sin sabor'}{variant.stock === 0 ? ' (sin stock)' : ''}
+            {getVariantLabel(variant) || 'Sin sabor'}
           </option>
         ))}
       </select>
