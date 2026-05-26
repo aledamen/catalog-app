@@ -40,7 +40,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </span>
         )}
         {product.badge && (
-          <span className="absolute top-3 left-3 z-20 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-white">
+          <span className={`absolute ${(product.bannerPosition === 'top' || product.bannerPosition === 'diagonal-tl') && product.bannerName ? 'top-9' : 'top-3'} left-3 z-20 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-white`}>
             {product.badge}
           </span>
         )}

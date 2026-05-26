@@ -28,7 +28,7 @@ export function VariantSelector({
       >
         {variants.map((variant) => (
           <option key={variant.sku} value={variant.sku}>
-            {getVariantLabel(variant)}
+            {getVariantLabel(variant) || 'Sin sabor'}{variant.stock === 0 ? ' (sin stock)' : ''}
           </option>
         ))}
       </select>
