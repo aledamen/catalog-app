@@ -36,12 +36,7 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
   return (
     <article className="panel flex h-full flex-col overflow-hidden transition-all duration-300 hover:shadow-panel-hover hover:-translate-y-0.5">
       <div className="relative aspect-[5/4] border-b border-zinc-200 bg-mist">
-        {product.featured && (
-          <span className="absolute top-3 right-3 z-10 rounded-full bg-ink px-2.5 py-1 text-xs font-semibold text-white">
-            ★ Destacado
-          </span>
-        )}
-        {product.badge && (
+{product.badge && (
           <span className={`absolute ${(product.bannerPosition === 'top' || product.bannerPosition === 'diagonal-tl') && product.bannerName ? 'top-9' : 'top-3'} left-3 z-20 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-white`}>
             {product.badge}
           </span>
@@ -70,7 +65,7 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
         )}
         {urgencyEnabled && selectedVariant.stock > 0 && selectedVariant.stock <= urgencyThreshold && (
           <div className="absolute bottom-3 right-3 z-10 rounded-full bg-orange-500 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
-            ¡Quedan {selectedVariant.stock}!
+            ¡{selectedVariant.stock === 1 ? 'Queda' : 'Quedan'} {selectedVariant.stock}!
           </div>
         )}
         {product.bannerName && (() => {

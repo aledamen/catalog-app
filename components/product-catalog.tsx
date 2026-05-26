@@ -36,9 +36,6 @@ function sortProducts(products: Product[], sort: SortOption): Product[] {
     if (aBanner && !bBanner) return -1;
     if (!aBanner && bBanner) return 1;
 
-    if (a.featured && !b.featured) return -1;
-    if (!a.featured && b.featured) return 1;
-
     switch (sort) {
       case "popular":    return b.salesCount - a.salesCount;
       case "price-asc":  return minPrice(a) - minPrice(b);
