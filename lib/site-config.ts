@@ -20,6 +20,10 @@ export type SiteConfig = {
   nav_checkout_label: string
   logo_url: string
   logo_width: string
+  stock_urgency_enabled: string
+  stock_urgency_threshold: string
+  featured_section_enabled: string
+  featured_section_title: string
 }
 
 const FALLBACK: SiteConfig = {
@@ -42,6 +46,10 @@ const FALLBACK: SiteConfig = {
   nav_checkout_label: 'Checkout',
   logo_url: '',
   logo_width: '340',
+  stock_urgency_enabled: 'false',
+  stock_urgency_threshold: '5',
+  featured_section_enabled: 'false',
+  featured_section_title: 'Destacados',
 }
 
 export async function getSiteConfig(): Promise<SiteConfig> {

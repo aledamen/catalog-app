@@ -10,9 +10,11 @@ import type { Product } from "@/lib/types";
 
 type ProductCardProps = {
   product: Product;
+  urgencyEnabled?: boolean;
+  urgencyThreshold?: number;
 };
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: ProductCardProps) {
   const defaultVariant = product.variants.find(v => v.stock > 0) ?? product.variants[0];
   const [selectedSku, setSelectedSku] = useState(defaultVariant?.sku ?? "");
   const addItem = useCartStore((state) => state.addItem);
@@ -64,6 +66,11 @@ export function ProductCard({ product }: ProductCardProps) {
             <span className="bg-zinc-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white">
               Sin Stock
             </span>
+          </div>
+        )}
+        {urgencyEnabled && selectedVariant.stock > 0 && selectedVariant.stock <= urgencyThreshold && (
+          <div className="absolute bottom-3 right-3 z-10 rounded-full bg-orange-500 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
+            ¡Quedan {selectedVariant.stock}!
           </div>
         )}
         {product.bannerName && (() => {

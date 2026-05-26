@@ -1,4 +1,5 @@
 import { ProductCatalog } from "@/components/product-catalog";
+import { ProductCard } from "@/components/product-card";
 import { getProducts } from "@/lib/products";
 import { getSiteConfig } from "@/lib/site-config";
 import { trackView } from "@/lib/track";
@@ -10,6 +11,11 @@ export const metadata = {
 export default async function CatalogPage() {
   await trackView('/catalogo')
   const [products, config] = await Promise.all([getProducts(), getSiteConfig()])
+
+  const urgencyEnabled = config.stock_urgency_enabled === 'true'
+  const urgencyThreshold = Number(config.stock_urgency_threshold) || 5
+  const featuredEnabled = config.featured_section_enabled === 'true'
+  const featuredProducts = products.filter(p => p.featured && p.visible)
 
   return (
     <div className="pb-16">
@@ -31,8 +37,23 @@ export default async function CatalogPage() {
         </div>
       </div>
 
+      {featuredEnabled && featuredProducts.length > 0 && (
+        <section className="container-shell pt-10">
+          <h2 className="mb-5 text-xl font-bold tracking-tight text-ink">
+            {config.featured_section_title}
+          </h2>
+          <div className="-mx-4 flex gap-5 overflow-x-auto px-4 pb-4 sm:mx-0 sm:px-0 snap-x snap-mandatory">
+            {featuredProducts.map(p => (
+              <div key={p.id} className="w-72 shrink-0 snap-start">
+                <ProductCard product={p} urgencyEnabled={urgencyEnabled} urgencyThreshold={urgencyThreshold} />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="container-shell pt-10">
-        <ProductCatalog products={products} />
+        <ProductCatalog products={products} urgencyEnabled={urgencyEnabled} urgencyThreshold={urgencyThreshold} />
       </section>
     </div>
   );

@@ -51,9 +51,11 @@ function sortProducts(products: Product[], sort: SortOption): Product[] {
 
 type ProductCatalogProps = {
   products: Product[];
+  urgencyEnabled?: boolean;
+  urgencyThreshold?: number;
 };
 
-export function ProductCatalog({ products }: ProductCatalogProps) {
+export function ProductCatalog({ products, urgencyEnabled, urgencyThreshold }: ProductCatalogProps) {
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [sort, setSort] = useState<SortOption>("popular");
@@ -149,7 +151,7 @@ export function ProductCatalog({ products }: ProductCatalogProps) {
 
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} urgencyEnabled={urgencyEnabled} urgencyThreshold={urgencyThreshold} />
         ))}
       </div>
 
