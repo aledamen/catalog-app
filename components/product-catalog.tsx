@@ -26,6 +26,11 @@ function hasStock(product: Product): boolean {
 
 function sortProducts(products: Product[], sort: SortOption): Product[] {
   return [...products].sort((a, b) => {
+    const aStock = hasStock(a);
+    const bStock = hasStock(b);
+    if (aStock && !bStock) return -1;
+    if (!aStock && bStock) return 1;
+
     const aBanner = !!a.bannerName;
     const bBanner = !!b.bannerName;
     if (aBanner && !bBanner) return -1;
@@ -33,11 +38,6 @@ function sortProducts(products: Product[], sort: SortOption): Product[] {
 
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return 1;
-
-    const aStock = hasStock(a);
-    const bStock = hasStock(b);
-    if (aStock && !bStock) return -1;
-    if (!aStock && bStock) return 1;
 
     switch (sort) {
       case "popular":    return b.salesCount - a.salesCount;
