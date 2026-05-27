@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CartCountBadge } from "@/components/cart-count-badge";
+import { ThemeToggle } from "@/components/theme-toggle";
 import type { SiteConfig } from "@/lib/site-config";
 
 export function Navbar({ config }: { config: SiteConfig }) {
@@ -12,8 +13,8 @@ export function Navbar({ config }: { config: SiteConfig }) {
 
   return (
     <header
-      className="sticky top-0 z-40 border-b border-line shadow-card backdrop-blur-md"
-      style={{ backgroundColor: config.header_bg }}
+      className="sticky top-0 z-40 border-b shadow-card backdrop-blur-md"
+      style={{ backgroundColor: 'var(--header-bg)', borderBottomColor: 'var(--header-border, #E5E5E5)' }}
     >
       <div className="container-shell flex h-20 items-center justify-between gap-3 sm:h-24 sm:gap-6">
         <Link className="flex items-center gap-3" href="/catalogo">
@@ -35,7 +36,7 @@ export function Navbar({ config }: { config: SiteConfig }) {
           {navLinks.map((item) => (
             <Link
               className="rounded-lg px-4 py-2 text-sm font-medium transition-all hover:opacity-75"
-              style={{ color: config.header_text_color }}
+              style={{ color: 'var(--header-text)' }}
               href={item.href}
               key={item.href}
             >
@@ -44,7 +45,10 @@ export function Navbar({ config }: { config: SiteConfig }) {
           ))}
         </nav>
 
-        <CartCountBadge />
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <CartCountBadge />
+        </div>
       </div>
     </header>
   );

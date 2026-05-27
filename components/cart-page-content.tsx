@@ -16,7 +16,7 @@ export function CartPageContent() {
 
   if (!hydrated) {
     return (
-      <div className="panel px-6 py-12 text-center text-sm text-zinc-500">
+      <div className="panel px-6 py-12 text-center text-sm text-zinc-500 dark:text-slate-400">
         Cargando pedido...
       </div>
     );
@@ -27,10 +27,10 @@ export function CartPageContent() {
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="panel p-8">
           <p className="section-label">Carrito</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink">
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink dark:text-white">
             Tu pedido todavía está vacío.
           </h1>
-          <p className="mt-4 max-w-xl text-zinc-600">
+          <p className="mt-4 max-w-xl text-zinc-600 dark:text-slate-300">
             Volvé al catálogo, elegí las variantes que quieras y armamos el
             checkout en un paso.
           </p>
@@ -47,7 +47,7 @@ export function CartPageContent() {
       <div className="space-y-4">
         <div className="panel p-6">
           <p className="section-label">Carrito</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink">
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink dark:text-white">
             Revisá tu pedido antes de enviarlo.
           </h1>
         </div>
@@ -57,7 +57,7 @@ export function CartPageContent() {
             className="panel grid gap-4 p-4 sm:grid-cols-[132px_1fr_auto] sm:items-center"
             key={item.sku}
           >
-            <div className="relative aspect-square overflow-hidden rounded-xl border border-zinc-200 bg-mist">
+            <div className="relative aspect-square overflow-hidden rounded-xl border border-zinc-200 bg-mist dark:border-dk-border dark:bg-dk-elevated">
               <Image
                 src={item.image}
                 alt={item.productName}
@@ -69,39 +69,39 @@ export function CartPageContent() {
 
             <div>
               <p className="section-label">{item.brand}</p>
-              <h2 className="mt-2 text-lg font-semibold text-ink">
+              <h2 className="mt-2 text-lg font-semibold text-ink dark:text-white">
                 {item.productName}
               </h2>
-              <p className="mt-2 text-sm text-zinc-600">{item.variantLabel}</p>
-              <p className="mt-1 text-sm text-zinc-500">{item.sku}</p>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-slate-300">{item.variantLabel}</p>
+              <p className="mt-1 text-sm text-zinc-500 dark:text-slate-400">{item.sku}</p>
             </div>
 
             <div className="flex flex-col gap-4 sm:items-end">
               <div className="text-right text-sm">
-                <p className="font-semibold text-ink">
+                <p className="font-semibold text-ink dark:text-white">
                   Efectivo {formatPrice(item.priceEffective * item.quantity)}
                 </p>
-                <p className="mt-1 text-zinc-500">
+                <p className="mt-1 text-zinc-500 dark:text-slate-400">
                   Transferencia {formatPrice(item.priceTransfer * item.quantity)}
                 </p>
-                <p className="mt-1 text-zinc-500">
+                <p className="mt-1 text-zinc-500 dark:text-slate-400">
                   Lista {formatPrice(item.priceList * item.quantity)}
                 </p>
               </div>
 
-              <div className="flex items-center overflow-hidden rounded-lg border border-zinc-200">
+              <div className="flex items-center overflow-hidden rounded-lg border border-zinc-200 dark:border-dk-border">
                 <button
-                  className="h-10 w-10 text-lg text-zinc-600 transition-colors hover:bg-accent/10 hover:text-ink"
+                  className="h-10 w-10 text-lg text-zinc-600 transition-colors hover:bg-accent/10 hover:text-ink dark:text-slate-300 dark:hover:text-white"
                   onClick={() => decrementItem(item.sku)}
                   type="button"
                 >
                   −
                 </button>
-                <span className="flex h-10 min-w-12 items-center justify-center border-x border-zinc-200 px-3 text-sm font-semibold text-ink">
+                <span className="flex h-10 min-w-12 items-center justify-center border-x border-zinc-200 px-3 text-sm font-semibold text-ink dark:border-dk-border dark:text-white">
                   {item.quantity}
                 </span>
                 <button
-                  className="h-10 w-10 text-lg text-zinc-600 transition-colors hover:bg-accent/10 hover:text-ink"
+                  className="h-10 w-10 text-lg text-zinc-600 transition-colors hover:bg-accent/10 hover:text-ink dark:text-slate-300 dark:hover:text-white"
                   onClick={() => incrementItem(item.sku)}
                   type="button"
                 >
@@ -110,7 +110,7 @@ export function CartPageContent() {
               </div>
 
               <button
-                className="text-sm text-zinc-500 transition hover:text-ink"
+                className="text-sm text-zinc-500 transition hover:text-ink dark:text-slate-400 dark:hover:text-white"
                 onClick={() => removeItem(item.sku)}
                 type="button"
               >
@@ -123,14 +123,14 @@ export function CartPageContent() {
 
       <aside className="panel h-fit p-6">
         <p className="section-label">Resumen</p>
-        <div className="mt-6 space-y-4 border-y border-zinc-200 py-5 text-sm text-zinc-600">
+        <div className="mt-6 space-y-4 border-y border-zinc-200 py-5 text-sm text-zinc-600 dark:border-dk-border dark:text-slate-300">
           <div className="flex items-center justify-between">
             <span>Items</span>
             <span>{items.reduce((acc, item) => acc + item.quantity, 0)}</span>
           </div>
           <div className="flex items-center justify-between">
             <span>Efectivo</span>
-            <span className="text-lg font-semibold text-ink">
+            <span className="text-lg font-semibold text-ink dark:text-white">
               {formatPrice(totals.effective)}
             </span>
           </div>
@@ -148,7 +148,7 @@ export function CartPageContent() {
             Continuar al checkout
           </Button>
           <Link
-            className="block text-center text-sm text-zinc-500 transition hover:text-ink"
+            className="block text-center text-sm text-zinc-500 transition hover:text-ink dark:text-slate-400 dark:hover:text-white"
             href="/catalogo"
           >
             Seguir comprando

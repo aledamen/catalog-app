@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { AppFrame } from "@/components/app-frame";
 import { getSiteConfig } from "@/lib/site-config";
+import { ThemeProvider } from "@/lib/theme";
 
 const font = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -38,8 +39,10 @@ export default async function RootLayout({
   const config = await getSiteConfig()
 
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
+        {/* anti-flash: apply dark class before first paint */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()` }} />
         <style>{`
           :root {
             --brand-accent: ${config.accent_color};
@@ -47,18 +50,24 @@ export default async function RootLayout({
             --header-bg: ${config.header_bg};
             --header-text: ${config.header_text_color};
           }
+          .dark {
+            --header-bg: #151A28;
+            --header-text: #ffffff;
+          }
         `}</style>
       </head>
       <body className={font.className}>
-        {config.announcement_enabled === 'true' && config.announcement_text && (
-          <div
-            style={{ backgroundColor: config.announcement_bg, color: config.announcement_text_color }}
-            className="w-full py-2 text-center text-sm font-medium"
-          >
-            {config.announcement_text}
-          </div>
-        )}
-        <AppFrame config={config}>{children}</AppFrame>
+        <ThemeProvider>
+          {config.announcement_enabled === 'true' && config.announcement_text && (
+            <div
+              style={{ backgroundColor: config.announcement_bg, color: config.announcement_text_color }}
+              className="w-full py-2 text-center text-sm font-medium"
+            >
+              {config.announcement_text}
+            </div>
+          )}
+          <AppFrame config={config}>{children}</AppFrame>
+        </ThemeProvider>
       </body>
     </html>
   );

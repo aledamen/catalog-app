@@ -19,7 +19,7 @@ export default async function CatalogPage() {
 
   return (
     <div className="pb-16">
-      <div className="border-b border-line bg-gradient-to-br from-accent/[0.06] via-white to-white">
+      <div className="border-b border-line bg-gradient-to-br from-accent/[0.06] via-white to-white dark:border-dk-border dark:from-accent/[0.08] dark:via-dk-base dark:to-dk-base">
         <div className="container-shell py-10 sm:py-12">
           {config.hero_overline && (
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent-deep">

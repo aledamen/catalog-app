@@ -35,7 +35,7 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
 
   return (
     <article className="panel flex h-full flex-col overflow-hidden transition-all duration-300 hover:shadow-panel-hover hover:-translate-y-0.5">
-      <div className="relative aspect-[5/4] border-b border-zinc-200 bg-mist">
+      <div className="relative aspect-[5/4] border-b border-zinc-200 bg-mist dark:border-dk-border dark:bg-dk-elevated">
 {product.badge && (
           <span className={`absolute ${(product.bannerPosition === 'top' || product.bannerPosition === 'diagonal-tl') && product.bannerName ? 'top-9' : 'top-3'} left-3 z-20 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-white`}>
             {product.badge}
@@ -57,7 +57,7 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
           </div>
         )}
         {selectedVariant.stock === 0 && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white/60">
+          <div className="absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-dk-base/70">
             <span className="bg-zinc-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white">
               Sin Stock
             </span>
@@ -116,9 +116,9 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
         <div className="flex items-start justify-between gap-4">
           <div className="w-full">
             <p className="section-label">{product.brand}</p>
-            <h2 className="mt-2 text-xl font-bold tracking-tight text-ink line-clamp-2 min-h-[3.5rem]">{product.name}</h2>
-            <p className="mt-1 text-sm text-zinc-500">{product.category}</p>
-            <p className="mt-2 text-sm text-zinc-500 line-clamp-2 min-h-[2.5rem]">
+            <h2 className="mt-2 text-xl font-bold tracking-tight text-ink line-clamp-2 min-h-[3.5rem] dark:text-white">{product.name}</h2>
+            <p className="mt-1 text-sm text-zinc-500 dark:text-slate-400">{product.category}</p>
+            <p className="mt-2 text-sm text-zinc-500 line-clamp-2 min-h-[2.5rem] dark:text-slate-400">
               {product.description ?? ''}
             </p>
           </div>
@@ -134,14 +134,14 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
           ) : (
             <div>
               <p className="mb-2 text-xs uppercase tracking-[0.24em] text-zinc-500">Variante</p>
-              <div className="flex h-12 w-full items-center rounded-lg border border-zinc-200 bg-zinc-50 px-4 text-sm text-zinc-400">
+              <div className="flex h-12 w-full items-center rounded-lg border border-zinc-200 bg-zinc-50 px-4 text-sm text-zinc-400 dark:border-dk-border dark:bg-dk-elevated dark:text-slate-400">
                 {variantLabel || "Sin sabor"}
               </div>
             </div>
           )}
         </div>
 
-        <div className="mt-5 space-y-3 rounded-xl border border-accent/20 bg-accent/5 p-4 text-sm">
+        <div className="mt-5 space-y-3 rounded-xl border border-accent/20 bg-accent/5 p-4 text-sm dark:bg-accent/10 dark:border-accent/30">
           {selectedVariant.promoPrice ? (
             <div className="flex items-center justify-between gap-4">
               <span className="text-zinc-500">
@@ -158,20 +158,20 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
             </div>
           ) : (
             <div className="flex items-center justify-between gap-4">
-              <span className="text-zinc-500">Efectivo</span>
+              <span className="text-zinc-500 dark:text-slate-400">Efectivo</span>
               <span className="font-bold text-accent-deep">
                 {formatPrice(selectedVariant.priceEffective)}
               </span>
             </div>
           )}
           <div className="flex items-center justify-between gap-4">
-            <span className="text-zinc-500">Transferencia</span>
+            <span className="text-zinc-500 dark:text-slate-400">Transferencia</span>
             <span className="font-medium text-ink">
               {formatPrice(selectedVariant.priceTransfer)}
             </span>
           </div>
           <div className="flex items-center justify-between gap-4">
-            <span className="text-zinc-500">Lista</span>
+            <span className="text-zinc-500 dark:text-slate-400">Lista</span>
             <span className="font-medium text-ink">
               {formatPrice(selectedVariant.priceList)}
             </span>

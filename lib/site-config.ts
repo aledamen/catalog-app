@@ -54,7 +54,7 @@ const FALLBACK: SiteConfig = {
 
 export async function getSiteConfig(): Promise<SiteConfig> {
   try {
-    const res = await fetch(`${INVENTORY_API}/api/site-config`, { next: { revalidate: 60 } })
+    const res = await fetch(`${INVENTORY_API}/api/site-config`, { next: { revalidate: 15 } })
     if (!res.ok) throw new Error('config fetch failed')
     return res.json()
   } catch {

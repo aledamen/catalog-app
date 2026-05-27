@@ -103,7 +103,7 @@ export function ProductCatalog({ products, urgencyEnabled, urgencyThreshold }: P
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Creatina, whey, shaker, sabor..."
-            className="h-12 w-full rounded-lg border border-zinc-200 bg-mist px-4 text-sm outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/10"
+            className="h-12 w-full rounded-lg border border-zinc-200 bg-mist px-4 text-sm outline-none transition-all focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/10 dark:border-dk-border dark:bg-dk-elevated dark:text-white dark:placeholder-slate-500 dark:focus:bg-dk-elevated"
           />
         </div>
 
@@ -114,7 +114,7 @@ export function ProductCatalog({ products, urgencyEnabled, urgencyThreshold }: P
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as SortOption)}
-            className="h-12 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm outline-none transition-all focus:border-accent focus:ring-2 focus:ring-accent/10"
+            className="h-12 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm outline-none transition-all focus:border-accent focus:ring-2 focus:ring-accent/10 dark:border-dk-border dark:bg-dk-elevated dark:text-white"
           >
             {SORT_OPTIONS.map((o) => (
               <option key={o.value} value={o.value}>
@@ -134,7 +134,7 @@ export function ProductCatalog({ products, urgencyEnabled, urgencyThreshold }: P
               className={`h-9 rounded-full border px-4 text-sm font-medium transition-all ${
                 active
                   ? "border-transparent bg-gradient-to-r from-accent to-accent-deep text-white shadow-md"
-                  : "border-zinc-200 bg-white text-zinc-600 hover:border-accent/40 hover:bg-accent/5 hover:text-ink"
+                  : "border-zinc-200 bg-white text-zinc-600 hover:border-accent/40 hover:bg-accent/5 hover:text-ink dark:border-dk-border dark:bg-dk-surface dark:text-slate-300 dark:hover:border-accent/40 dark:hover:text-white"
               }`}
               key={category}
               onClick={() => setSelectedCategory(category)}
