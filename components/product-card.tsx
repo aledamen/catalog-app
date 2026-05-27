@@ -116,7 +116,7 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
         <div className="flex items-start justify-between gap-4">
           <div className="w-full">
             <p className="section-label">{product.brand}</p>
-            <h2 className="mt-2 text-xl font-bold tracking-tight text-ink">{product.name}</h2>
+            <h2 className="mt-2 text-xl font-bold tracking-tight text-ink line-clamp-2 min-h-[3.5rem]">{product.name}</h2>
             <p className="mt-1 text-sm text-zinc-500">{product.category}</p>
             <p className="mt-2 text-sm text-zinc-500 line-clamp-2 min-h-[2.5rem]">
               {product.description ?? ''}
