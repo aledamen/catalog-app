@@ -165,15 +165,9 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
             </div>
           )}
           <div className="flex items-center justify-between gap-4">
-            <span className="text-zinc-500 dark:text-slate-400">Transferencia</span>
+            <span className="text-zinc-500 dark:text-slate-400">Transferencia / Lista</span>
             <span className="font-medium text-ink">
               {formatPrice(selectedVariant.priceTransfer)}
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-4">
-            <span className="text-zinc-500 dark:text-slate-400">Lista</span>
-            <span className="font-medium text-ink">
-              {formatPrice(selectedVariant.priceList)}
             </span>
           </div>
         </div>
