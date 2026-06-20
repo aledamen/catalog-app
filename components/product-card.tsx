@@ -141,35 +141,46 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
           )}
         </div>
 
-        <div className="mt-5 space-y-3 rounded-xl border border-accent/20 bg-accent/5 p-4 text-sm dark:bg-accent/10 dark:border-accent/30">
-          {selectedVariant.promoPrice ? (
+        <div className="mt-5 rounded-xl border border-accent/20 bg-accent/5 p-4 text-sm dark:bg-accent/10 dark:border-accent/30">
+          {selectedVariant.priceTransfer === 0 ? (
             <div className="flex items-center justify-between gap-4">
-              <span className="text-zinc-500">
-                Efectivo{selectedVariant.promoLabel ? ` — ${selectedVariant.promoLabel}` : ''}
+              <span className="text-zinc-500 dark:text-slate-400 font-medium">Cualquier medio de pago</span>
+              <span className="text-lg font-bold text-accent-deep">
+                {formatPrice(selectedVariant.promoPrice ?? selectedVariant.priceEffective)}
               </span>
-              <div className="text-right">
-                <span className="text-xs line-through text-zinc-400 mr-2">
-                  {formatPrice(selectedVariant.priceEffective)}
-                </span>
-                <span className="font-bold text-red-600">
-                  {formatPrice(selectedVariant.promoPrice)}
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {selectedVariant.promoPrice ? (
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-zinc-500">
+                    Efectivo{selectedVariant.promoLabel ? ` — ${selectedVariant.promoLabel}` : ''}
+                  </span>
+                  <div className="text-right">
+                    <span className="text-xs line-through text-zinc-400 mr-2">
+                      {formatPrice(selectedVariant.priceEffective)}
+                    </span>
+                    <span className="font-bold text-red-600">
+                      {formatPrice(selectedVariant.promoPrice)}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-zinc-500 dark:text-slate-400">Efectivo</span>
+                  <span className="font-bold text-accent-deep">
+                    {formatPrice(selectedVariant.priceEffective)}
+                  </span>
+                </div>
+              )}
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-zinc-500 dark:text-slate-400">Transferencia / Lista</span>
+                <span className="font-medium text-ink">
+                  {formatPrice(selectedVariant.priceTransfer)}
                 </span>
               </div>
             </div>
-          ) : (
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-zinc-500 dark:text-slate-400">Efectivo</span>
-              <span className="font-bold text-accent-deep">
-                {formatPrice(selectedVariant.priceEffective)}
-              </span>
-            </div>
           )}
-          <div className="flex items-center justify-between gap-4">
-            <span className="text-zinc-500 dark:text-slate-400">Transferencia / Lista</span>
-            <span className="font-medium text-ink">
-              {formatPrice(selectedVariant.priceTransfer)}
-            </span>
-          </div>
         </div>
 
         <Button
