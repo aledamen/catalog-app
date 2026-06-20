@@ -143,7 +143,7 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
 
         <div className="mt-5 rounded-xl border border-accent/20 bg-accent/5 p-4 text-sm dark:bg-accent/10 dark:border-accent/30">
           {selectedVariant.priceTransfer === 0 ? (
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex min-h-[3.25rem] items-center justify-between gap-4">
               <span className="text-zinc-500 dark:text-slate-400 font-medium">Cualquier medio de pago</span>
               <span className="text-lg font-bold text-accent-deep">
                 {formatPrice(selectedVariant.promoPrice ?? selectedVariant.priceEffective)}
