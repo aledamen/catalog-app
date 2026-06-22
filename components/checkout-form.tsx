@@ -14,6 +14,8 @@ type CouponResult = {
   discountValue: number;
   discountAmount: number;
   finalAmount: number;
+  influencerName: string | null;
+  influencerHandle: string | null;
 };
 
 export function CheckoutForm() {
@@ -32,9 +34,13 @@ export function CheckoutForm() {
     ? Math.max(0, totals.effective - coupon.discountAmount)
     : totals.effective;
 
+  const discountedTransfer = coupon && totals.effective > 0
+    ? Math.max(0, Math.round(totals.transfer * discountedEffective / totals.effective))
+    : totals.transfer;
+
   const whatsappHref = useMemo(() => {
     if (!items.length) return "";
-    return buildWhatsAppHref(items, coupon ? { code: couponCode, discountAmount: coupon.discountAmount } : undefined, clientName || undefined);
+    return buildWhatsAppHref(items, coupon ? { code: couponCode, discountAmount: coupon.discountAmount, influencerHandle: coupon.influencerHandle, influencerName: coupon.influencerName } : undefined, clientName || undefined);
   }, [items, coupon, couponCode, clientName]);
 
   async function handleApplyCoupon() {
@@ -68,28 +74,8 @@ export function CheckoutForm() {
     setCouponError("");
   }
 
-  async function handleSubmit() {
+  function handleSubmit() {
     if (!whatsappHref) return;
-
-    if (coupon) {
-      try {
-        await fetch(`${INVENTORY_API}/api/coupons/use`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            couponId: coupon.couponId,
-            source: "catalog",
-            originalAmount: totals.effective,
-            discountApplied: coupon.discountAmount,
-            finalAmount: discountedEffective,
-            clientName: clientName || undefined,
-          }),
-        });
-      } catch {
-        // Non-blocking — don't prevent the order
-      }
-    }
-
     window.open(whatsappHref, "_blank", "noopener,noreferrer");
   }
 
@@ -153,10 +139,15 @@ export function CheckoutForm() {
             <div className="flex items-center justify-between rounded-lg border border-green-200 bg-green-50 px-4 py-2.5 text-sm dark:border-green-800 dark:bg-green-950/30">
               <span className="font-mono font-semibold text-green-700 dark:text-green-400">
                 {couponCode.toUpperCase()}
-                <span className="ml-2 font-normal">
+                <span className="ml-2 font-normal font-sans">
                   — {coupon.discountType === "percentage"
                     ? `${coupon.discountValue}% off`
                     : `${formatPrice(coupon.discountAmount)} off`}
+                  {coupon.influencerName && (
+                    <span className="ml-1 text-zinc-500 dark:text-slate-400">
+                      · {coupon.influencerHandle ?? coupon.influencerName}
+                    </span>
+                  )}
                 </span>
               </span>
               <button
@@ -263,8 +254,14 @@ export function CheckoutForm() {
           )}
           <div className="flex items-center justify-between text-sm text-zinc-600 dark:text-slate-300">
             <span>Total transferencia</span>
-            <span>{formatPrice(totals.transfer)}</span>
+            <span className={coupon ? "line-through text-zinc-400" : ""}>{formatPrice(totals.transfer)}</span>
           </div>
+          {coupon && (
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-zinc-600 dark:text-slate-300">Con descuento (transferencia)</span>
+              <span className="font-medium text-ink dark:text-white">{formatPrice(discountedTransfer)}</span>
+            </div>
+          )}
         </div>
       </aside>
     </div>

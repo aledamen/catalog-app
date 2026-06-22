@@ -6,6 +6,8 @@ const WHATSAPP_NUMBER = "5491139545945";
 type CouponInfo = {
   code: string;
   discountAmount: number;
+  influencerHandle?: string | null;
+  influencerName?: string | null;
 };
 
 export function buildWhatsAppMessage(items: CartItem[], coupon?: CouponInfo, clientName?: string) {
@@ -14,23 +16,28 @@ export function buildWhatsAppMessage(items: CartItem[], coupon?: CouponInfo, cli
       `- ${item.productName} (${item.variantLabel}) x${item.quantity}`
   );
   const totals = getPriceTotals(items);
+
   const effectiveTotal = coupon
     ? Math.max(0, totals.effective - coupon.discountAmount)
     : totals.effective;
+  const transferTotal = coupon && totals.effective > 0
+    ? Math.max(0, Math.round(totals.transfer * effectiveTotal / totals.effective))
+    : totals.transfer;
+
+  const couponLine = coupon
+    ? (coupon.influencerHandle || coupon.influencerName)
+      ? `Cupón ${coupon.code} · @${coupon.influencerHandle ?? coupon.influencerName}`
+      : `Cupón ${coupon.code}`
+    : null;
 
   return [
     `Hola${clientName ? `, soy ${clientName}` : ""}, quiero confirmar este pedido de Fase-Beta.`,
     "",
     ...lines,
     "",
-    ...(coupon ? [
-      `Total efectivo: ${formatPrice(totals.effective)}`,
-      `Cupón ${coupon.code}: -${formatPrice(coupon.discountAmount)}`,
-      `Total con descuento: ${formatPrice(effectiveTotal)}`,
-    ] : [
-      `Total efectivo: ${formatPrice(totals.effective)}`,
-    ]),
-    `Total transferencia: ${formatPrice(totals.transfer)}`,
+    `Total efectivo: ${formatPrice(effectiveTotal)}`,
+    `Total transferencia: ${formatPrice(transferTotal)}`,
+    ...(couponLine ? [couponLine] : []),
   ].join("\n");
 }
 
