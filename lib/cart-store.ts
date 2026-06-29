@@ -26,6 +26,7 @@ export const useCartStore = create<CartStore>()(
           const existing = state.items.find((entry) => entry.sku === item.sku);
 
           if (existing) {
+            if (existing.quantity >= existing.stock) return state;
             return {
               items: state.items.map((entry) =>
                 entry.sku === item.sku
@@ -42,7 +43,9 @@ export const useCartStore = create<CartStore>()(
       incrementItem: (sku) =>
         set((state) => ({
           items: state.items.map((item) =>
-            item.sku === sku ? { ...item, quantity: item.quantity + 1 } : item
+            item.sku === sku && item.quantity < item.stock
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
           )
         })),
       decrementItem: (sku) =>
@@ -70,7 +73,7 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: "fase-beta-cart",
-      version: 2,
+      version: 3,
       storage: createJSONStorage(() => localStorage),
       migrate: () => ({ items: [] })
     }

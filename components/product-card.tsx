@@ -18,6 +18,7 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
   const defaultVariant = product.variants.find(v => v.stock > 0) ?? product.variants[0];
   const [selectedSku, setSelectedSku] = useState(defaultVariant?.sku ?? "");
   const addItem = useCartStore((state) => state.addItem);
+  const cartItems = useCartStore((state) => state.items);
 
   const selectedVariant = useMemo(
     () =>
@@ -32,6 +33,8 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
 
   const image = selectedVariant.image || product.image;
   const variantLabel = getVariantLabel(selectedVariant);
+  const cartQty = cartItems.find((i) => i.sku === selectedVariant.sku)?.quantity ?? 0;
+  const atMaxStock = selectedVariant.stock > 0 && cartQty >= selectedVariant.stock;
 
   return (
     <article className="panel flex h-full flex-col overflow-hidden transition-all duration-300 hover:shadow-panel-hover hover:-translate-y-0.5">
@@ -196,13 +199,14 @@ export function ProductCard({ product, urgencyEnabled, urgencyThreshold = 5 }: P
               priceEffective: selectedVariant.priceEffective,
               priceTransfer: selectedVariant.priceTransfer,
               priceList: selectedVariant.priceList,
+              stock: selectedVariant.stock,
               image: image || "/products/placeholder.svg"
             })
           }
           variant="secondary"
-          disabled={selectedVariant.stock === 0}
+          disabled={selectedVariant.stock === 0 || atMaxStock}
         >
-          {selectedVariant.stock === 0 ? "Sin Stock" : "Agregar al carrito"}
+          {selectedVariant.stock === 0 ? "Sin Stock" : atMaxStock ? "Máximo en carrito" : "Agregar al carrito"}
         </Button>
       </div>
     </article>

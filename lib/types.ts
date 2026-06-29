@@ -40,6 +40,7 @@ export type CartItem = {
   priceEffective: number;
   priceTransfer: number;
   priceList: number;
+  stock: number;
   quantity: number;
   image: string;
 };

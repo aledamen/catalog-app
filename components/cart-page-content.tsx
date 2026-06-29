@@ -101,8 +101,9 @@ export function CartPageContent() {
                   {item.quantity}
                 </span>
                 <button
-                  className="h-10 w-10 text-lg text-zinc-600 transition-colors hover:bg-accent/10 hover:text-ink dark:text-slate-300 dark:hover:text-white"
+                  className="h-10 w-10 text-lg text-zinc-600 transition-colors hover:bg-accent/10 hover:text-ink disabled:cursor-not-allowed disabled:opacity-30 dark:text-slate-300 dark:hover:text-white"
                   onClick={() => incrementItem(item.sku)}
+                  disabled={item.quantity >= item.stock}
                   type="button"
                 >
                   +
