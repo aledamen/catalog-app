@@ -30,6 +30,11 @@ export function CheckoutForm() {
   const [couponError, setCouponError] = useState("");
   const [couponLoading, setCouponLoading] = useState(false);
 
+  const nonComboEffective = items
+    .filter((item) => !item.productId.startsWith("combo__"))
+    .reduce((sum, item) => sum + item.priceEffective * item.quantity, 0);
+  const hasCombo = items.some((item) => item.productId.startsWith("combo__"));
+
   const discountedEffective = coupon
     ? Math.max(0, totals.effective - coupon.discountAmount)
     : totals.effective;
@@ -45,13 +50,18 @@ export function CheckoutForm() {
 
   async function handleApplyCoupon() {
     if (!couponCode.trim()) return;
+    if (nonComboEffective <= 0) {
+      setCouponError("Los cupones no aplican a combos");
+      setCoupon(null);
+      return;
+    }
     setCouponLoading(true);
     setCouponError("");
     try {
       const res = await fetch(`${INVENTORY_API}/api/coupons/validate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: couponCode.trim(), amount: totals.effective }),
+        body: JSON.stringify({ code: couponCode.trim(), amount: nonComboEffective }),
       });
       const data = await res.json();
       if (!data.valid) {
@@ -135,6 +145,11 @@ export function CheckoutForm() {
           <label className="block text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500 dark:text-slate-400 mb-2">
             Cupón de descuento
           </label>
+          {hasCombo && (
+            <p className="mb-1.5 text-xs text-zinc-500 dark:text-slate-400">
+              No aplica a los combos del carrito.
+            </p>
+          )}
           {coupon ? (
             <div className="flex items-center justify-between rounded-lg border border-green-200 bg-green-50 px-4 py-2.5 text-sm dark:border-green-800 dark:bg-green-950/30">
               <span className="font-mono font-semibold text-green-700 dark:text-green-400">
