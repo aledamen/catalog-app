@@ -22,9 +22,13 @@ export async function getCuratedPicks(): Promise<CuratedPick[]> {
     const res = await fetch(`${INVENTORY_API}/api/curated-picks`, {
       cache: "no-store",
     });
-    if (!res.ok) throw new Error("curated picks fetch failed");
+    if (!res.ok) {
+      console.error(`[getCuratedPicks] fetch to ${INVENTORY_API}/api/curated-picks failed: ${res.status} ${res.statusText}`);
+      return [];
+    }
 
     const data: ApiCuratedPick[] = await res.json();
+    console.error(`[getCuratedPicks] fetched ${data.length} picks from ${INVENTORY_API}/api/curated-picks`);
 
     return data.map((pick) => ({
       position: pick.position,
@@ -32,7 +36,8 @@ export async function getCuratedPicks(): Promise<CuratedPick[]> {
       description: pick.description,
       product: mapApiProduct(pick.product),
     }));
-  } catch {
+  } catch (err) {
+    console.error(`[getCuratedPicks] threw while fetching ${INVENTORY_API}/api/curated-picks:`, err);
     return [];
   }
 }
