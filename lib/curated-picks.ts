@@ -20,7 +20,7 @@ export type CuratedPick = {
 export async function getCuratedPicks(): Promise<CuratedPick[]> {
   try {
     const res = await fetch(`${INVENTORY_API}/api/curated-picks`, {
-      next: { revalidate: 60 },
+      cache: "no-store",
     });
     if (!res.ok) throw new Error("curated picks fetch failed");
 

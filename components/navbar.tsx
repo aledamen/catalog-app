@@ -5,10 +5,6 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import type { SiteConfig } from "@/lib/site-config";
 
 export function Navbar({ config }: { config: SiteConfig }) {
-  const navLinks = [
-    { href: "/catalogo", label: config.nav_catalogo_label },
-  ];
-
   return (
     <header
       className="sticky top-0 z-40 border-b shadow-card backdrop-blur-md"
@@ -29,19 +25,6 @@ export function Navbar({ config }: { config: SiteConfig }) {
             />
           </div>
         </Link>
-
-        <nav className="hidden items-center gap-1 md:flex">
-          {navLinks.map((item) => (
-            <Link
-              className="rounded-lg px-4 py-2 text-sm font-medium transition-all hover:opacity-75"
-              style={{ color: 'var(--header-text)' }}
-              href={item.href}
-              key={item.href}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />

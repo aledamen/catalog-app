@@ -72,7 +72,7 @@ export function CartDrawer({ whatsappNumber }: CartDrawerProps) {
               <p className="max-w-xs text-sm text-zinc-600 dark:text-slate-300">
                 Volvé al catálogo y elegí las variantes que quieras.
               </p>
-              <Button href="/catalogo">
+              <Button onClick={closeCart}>
                 Ir al catálogo
               </Button>
             </div>
