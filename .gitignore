@@ -3,4 +3,7 @@ node_modules
 dist
 .next
 .env.local
+.atl
+.engram
+.sdd
 .env*.local

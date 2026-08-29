@@ -28,6 +28,7 @@ export type Product = {
   bannerColor?: string;
   bannerTextColor?: string;
   bannerPosition?: string;
+  availableStock?: number;
 };
 
 export type CartItem = {

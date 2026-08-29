@@ -2,7 +2,7 @@ import type { Product, ProductVariant } from "@/lib/types";
 
 const INVENTORY_API = process.env.NEXT_PUBLIC_INVENTORY_API_URL ?? "http://localhost:3000";
 
-type ApiVariant = {
+export type ApiVariant = {
   sku: string;
   flavor: string | null;
   stock: number;
@@ -15,7 +15,7 @@ type ApiVariant = {
   promoLabel: string | null;
 };
 
-type ApiProduct = {
+export type ApiProduct = {
   id: string;
   name: string;
   brand: string | null;
@@ -31,17 +31,11 @@ type ApiProduct = {
   bannerColor: string | null;
   bannerTextColor: string | null;
   bannerPosition: string | null;
+  availableStock?: number;
 };
 
-export async function getProducts(): Promise<Product[]> {
-  const res = await fetch(`${INVENTORY_API}/api/catalog`, {
-    next: { revalidate: 60 },
-  });
-  if (!res.ok) throw new Error(`Catalog API failed: ${res.status}`);
-
-  const data: ApiProduct[] = await res.json();
-
-  return data.map((p) => ({
+export function mapApiProduct(p: ApiProduct): Product {
+  return {
     id: p.id,
     name: p.name,
     brand: p.brand ?? "",
@@ -56,6 +50,7 @@ export async function getProducts(): Promise<Product[]> {
     ...(p.bannerColor ? { bannerColor: p.bannerColor } : {}),
     ...(p.bannerTextColor ? { bannerTextColor: p.bannerTextColor } : {}),
     ...(p.bannerPosition ? { bannerPosition: p.bannerPosition } : {}),
+    ...(p.availableStock !== undefined ? { availableStock: p.availableStock } : {}),
     variants: p.variants.map((v): ProductVariant => ({
       sku: v.sku,
       stock: v.stock,
@@ -70,5 +65,16 @@ export async function getProducts(): Promise<Product[]> {
       ...(v.promoPrice ? { promoPrice: v.promoPrice } : {}),
       ...(v.promoLabel ? { promoLabel: v.promoLabel } : {}),
     })),
-  }));
+  };
+}
+
+export async function getProducts(): Promise<Product[]> {
+  const res = await fetch(`${INVENTORY_API}/api/catalog`, {
+    next: { revalidate: 60 },
+  });
+  if (!res.ok) throw new Error(`Catalog API failed: ${res.status}`);
+
+  const data: ApiProduct[] = await res.json();
+
+  return data.map(mapApiProduct);
 }

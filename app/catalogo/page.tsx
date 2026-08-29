@@ -1,5 +1,7 @@
+import { CuratedPicks } from "@/components/curated-picks";
 import { ProductCatalog } from "@/components/product-catalog";
 import { ProductCard } from "@/components/product-card";
+import { getCuratedPicks } from "@/lib/curated-picks";
 import { getProducts } from "@/lib/products";
 import { getSiteConfig } from "@/lib/site-config";
 import { trackView } from "@/lib/track";
@@ -10,7 +12,11 @@ export const metadata = {
 
 export default async function CatalogPage() {
   await trackView('/catalogo')
-  const [products, config] = await Promise.all([getProducts(), getSiteConfig()])
+  const [products, config, curatedPicks] = await Promise.all([
+    getProducts(),
+    getSiteConfig(),
+    getCuratedPicks(),
+  ])
 
   const urgencyEnabled = config.stock_urgency_enabled === 'true'
   const urgencyThreshold = Number(config.stock_urgency_threshold) || 5
@@ -36,6 +42,8 @@ export default async function CatalogPage() {
           )}
         </div>
       </div>
+
+      <CuratedPicks picks={curatedPicks} />
 
       {featuredEnabled && featuredProducts.length > 0 && (
         <section className="container-shell pt-10">

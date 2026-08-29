@@ -17,7 +17,6 @@ export type SiteConfig = {
   header_text_color: string
   nav_catalogo_label: string
   nav_carrito_label: string
-  nav_checkout_label: string
   logo_url: string
   logo_width: string
   stock_urgency_enabled: string
@@ -43,7 +42,6 @@ const FALLBACK: SiteConfig = {
   header_text_color: '#0A0A0A',
   nav_catalogo_label: 'Catálogo',
   nav_carrito_label: 'Carrito',
-  nav_checkout_label: 'Checkout',
   logo_url: '',
   logo_width: '340',
   stock_urgency_enabled: 'false',

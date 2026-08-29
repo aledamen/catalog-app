@@ -1,0 +1,232 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { Button } from "@/components/button";
+import { useCartStore } from "@/lib/cart-store";
+import { buildWhatsAppHref, hasWhatsAppNumber } from "@/lib/whatsapp";
+import { formatPrice } from "@/lib/utils";
+
+const INVENTORY_API = process.env.NEXT_PUBLIC_INVENTORY_API_URL ?? "http://localhost:3000";
+
+type CouponResult = {
+  couponId: number;
+  discountType: string;
+  discountValue: number;
+  discountAmount: number;
+  finalAmount: number;
+  influencerName: string | null;
+  influencerHandle: string | null;
+};
+
+type CartCheckoutPanelProps = {
+  whatsappNumber: string | null;
+};
+
+export function CartCheckoutPanel({ whatsappNumber }: CartCheckoutPanelProps) {
+  const items = useCartStore((state) => state.items);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const totals = useCartStore((state) => state.getTotals());
+
+  const [clientName, setClientName] = useState("");
+  const [couponCode, setCouponCode] = useState("");
+  const [coupon, setCoupon] = useState<CouponResult | null>(null);
+  const [couponError, setCouponError] = useState("");
+  const [couponLoading, setCouponLoading] = useState(false);
+
+  const nonComboEffective = items
+    .filter((item) => !item.productId.startsWith("combo__"))
+    .reduce((sum, item) => sum + item.priceEffective * item.quantity, 0);
+  const hasCombo = items.some((item) => item.productId.startsWith("combo__"));
+
+  const discountedEffective = coupon
+    ? Math.max(0, totals.effective - coupon.discountAmount)
+    : totals.effective;
+
+  const discountedTransfer = coupon && totals.effective > 0
+    ? Math.max(0, Math.round(totals.transfer * discountedEffective / totals.effective))
+    : totals.transfer;
+
+  const showWhatsAppCta = hasWhatsAppNumber(whatsappNumber);
+
+  const whatsappHref = useMemo(() => {
+    if (!items.length || !showWhatsAppCta) return "";
+    return buildWhatsAppHref(
+      items,
+      whatsappNumber,
+      coupon ? { code: couponCode, discountAmount: coupon.discountAmount, influencerHandle: coupon.influencerHandle, influencerName: coupon.influencerName } : undefined,
+      clientName || undefined
+    );
+  }, [items, whatsappNumber, showWhatsAppCta, coupon, couponCode, clientName]);
+
+  async function handleApplyCoupon() {
+    if (!couponCode.trim()) return;
+    if (nonComboEffective <= 0) {
+      setCouponError("Los cupones no aplican a combos");
+      setCoupon(null);
+      return;
+    }
+    setCouponLoading(true);
+    setCouponError("");
+    try {
+      const res = await fetch(`${INVENTORY_API}/api/coupons/validate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: couponCode.trim(), amount: nonComboEffective }),
+      });
+      const data = await res.json();
+      if (!data.valid) {
+        setCouponError(data.error ?? "Cupón inválido");
+        setCoupon(null);
+      } else {
+        setCoupon(data);
+        setCouponError("");
+      }
+    } catch {
+      setCouponError("Error al validar el cupón");
+    } finally {
+      setCouponLoading(false);
+    }
+  }
+
+  function handleRemoveCoupon() {
+    setCoupon(null);
+    setCouponCode("");
+    setCouponError("");
+  }
+
+  function handleSubmit() {
+    if (!whatsappHref) return;
+    window.open(whatsappHref, "_blank", "noopener,noreferrer");
+  }
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <label className="block text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500 dark:text-slate-400 mb-2">
+          Tu nombre (opcional)
+        </label>
+        <input
+          type="text"
+          value={clientName}
+          onChange={e => setClientName(e.target.value)}
+          placeholder="¿Cómo te llamás?"
+          className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm text-ink placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-dk-border dark:bg-dk-elevated dark:text-white dark:placeholder:text-slate-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500 dark:text-slate-400 mb-2">
+          Cupón de descuento
+        </label>
+        {hasCombo && (
+          <p className="mb-1.5 text-xs text-zinc-500 dark:text-slate-400">
+            No aplica a los combos del carrito.
+          </p>
+        )}
+        {coupon ? (
+          <div className="flex items-center justify-between rounded-lg border border-green-200 bg-green-50 px-4 py-2.5 text-sm dark:border-green-800 dark:bg-green-950/30">
+            <span className="font-mono font-semibold text-green-700 dark:text-green-400">
+              {couponCode.toUpperCase()}
+              <span className="ml-2 font-normal font-sans">
+                — {coupon.discountType === "percentage"
+                  ? `${coupon.discountValue}% off`
+                  : `${formatPrice(coupon.discountAmount)} off`}
+                {coupon.influencerName && (
+                  <span className="ml-1 text-zinc-500 dark:text-slate-400">
+                    · {coupon.influencerHandle ?? coupon.influencerName}
+                  </span>
+                )}
+              </span>
+            </span>
+            <button
+              type="button"
+              onClick={handleRemoveCoupon}
+              className="ml-4 text-xs text-zinc-500 hover:text-zinc-700 dark:text-slate-400"
+            >
+              Quitar
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={couponCode}
+              onChange={e => setCouponCode(e.target.value.toUpperCase())}
+              placeholder="Código de cupón"
+              onKeyDown={e => e.key === "Enter" && handleApplyCoupon()}
+              className="flex-1 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-mono uppercase tracking-wider text-ink placeholder:normal-case placeholder:tracking-normal placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-dk-border dark:bg-dk-elevated dark:text-white"
+            />
+            <button
+              type="button"
+              onClick={handleApplyCoupon}
+              disabled={!couponCode.trim() || couponLoading}
+              className="rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-ink transition hover:bg-zinc-50 disabled:opacity-50 dark:border-dk-border dark:bg-dk-elevated dark:text-white"
+            >
+              {couponLoading ? "..." : "Aplicar"}
+            </button>
+          </div>
+        )}
+        {couponError && (
+          <p className="mt-1.5 text-xs text-red-500">{couponError}</p>
+        )}
+      </div>
+
+      {showWhatsAppCta && (
+        <div className="rounded-xl border border-accent/20 bg-accent/5 p-5 dark:bg-accent/10 dark:border-accent/30">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent-deep">
+            Destino del pedido
+          </p>
+          <p className="mt-3 text-lg font-semibold text-ink dark:text-white">
+            {whatsappNumber}
+          </p>
+          <p className="mt-2 text-sm text-zinc-600 dark:text-slate-300">
+            Al confirmar, se abrirá WhatsApp con el pedido completo listo para
+            enviar a este número.
+          </p>
+        </div>
+      )}
+
+      <div className="space-y-3 border-t border-zinc-200 pt-5 dark:border-dk-border">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-zinc-500 dark:text-slate-400">Total efectivo</span>
+          <span className={coupon ? "text-sm line-through text-zinc-400" : "text-xl font-semibold text-ink dark:text-white"}>
+            {formatPrice(totals.effective)}
+          </span>
+        </div>
+        {coupon && (
+          <>
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-green-600 dark:text-green-400">Descuento cupón</span>
+              <span className="text-green-600 dark:text-green-400">−{formatPrice(coupon.discountAmount)}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-semibold text-ink dark:text-white">Total con descuento</span>
+              <span className="text-xl font-bold text-accent-deep">{formatPrice(discountedEffective)}</span>
+            </div>
+          </>
+        )}
+        <div className="flex items-center justify-between text-sm text-zinc-600 dark:text-slate-300">
+          <span>Total transferencia</span>
+          <span className={coupon ? "line-through text-zinc-400" : ""}>{formatPrice(totals.transfer)}</span>
+        </div>
+        {coupon && (
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-zinc-600 dark:text-slate-300">Con descuento (transferencia)</span>
+            <span className="font-medium text-ink dark:text-white">{formatPrice(discountedTransfer)}</span>
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-3 sm:flex-row">
+        {showWhatsAppCta && (
+          <Button className="flex-1" onClick={handleSubmit} variant="secondary">
+            Enviar pedido por WhatsApp
+          </Button>
+        )}
+        <Button onClick={clearCart} variant="ghost">
+          Vaciar carrito
+        </Button>
+      </div>
+    </div>
+  );
+}

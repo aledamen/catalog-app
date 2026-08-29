@@ -7,8 +7,6 @@ import type { SiteConfig } from "@/lib/site-config";
 export function Navbar({ config }: { config: SiteConfig }) {
   const navLinks = [
     { href: "/catalogo", label: config.nav_catalogo_label },
-    { href: "/carrito", label: config.nav_carrito_label },
-    { href: "/checkout", label: config.nav_checkout_label },
   ];
 
   return (
@@ -47,7 +45,7 @@ export function Navbar({ config }: { config: SiteConfig }) {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <CartCountBadge />
+          <CartCountBadge config={config} />
         </div>
       </div>
     </header>
