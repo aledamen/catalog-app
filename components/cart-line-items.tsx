@@ -40,10 +40,7 @@ export function CartLineItems() {
               Efectivo {formatPrice(item.priceEffective * item.quantity)}
             </p>
             <p className="mt-1 text-zinc-500 dark:text-slate-400">
-              Transferencia {formatPrice(item.priceTransfer * item.quantity)}
-            </p>
-            <p className="mt-1 text-zinc-500 dark:text-slate-400">
-              Lista {formatPrice(item.priceList * item.quantity)}
+              Transferencia / Lista {formatPrice(item.priceTransfer * item.quantity)}
             </p>
           </div>
 

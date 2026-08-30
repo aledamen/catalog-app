@@ -23,6 +23,8 @@ export type SiteConfig = {
   stock_urgency_threshold: string
   featured_section_enabled: string
   featured_section_title: string
+  curated_picks_title: string
+  curated_picks_subtitle: string
 }
 
 const FALLBACK: SiteConfig = {
@@ -48,6 +50,8 @@ const FALLBACK: SiteConfig = {
   stock_urgency_threshold: '5',
   featured_section_enabled: 'false',
   featured_section_title: 'Destacados',
+  curated_picks_title: 'Empezá por acá',
+  curated_picks_subtitle: 'Combos armados para arrancar sin vueltas.',
 }
 
 export async function getSiteConfig(): Promise<SiteConfig> {

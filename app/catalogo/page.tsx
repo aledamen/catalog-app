@@ -43,7 +43,11 @@ export default async function CatalogPage() {
         </div>
       </div>
 
-      <CuratedPicks picks={curatedPicks} />
+      <CuratedPicks
+        picks={curatedPicks}
+        title={config.curated_picks_title}
+        subtitle={config.curated_picks_subtitle}
+      />
 
       {featuredEnabled && featuredProducts.length > 0 && (
         <section className="container-shell pt-10">
