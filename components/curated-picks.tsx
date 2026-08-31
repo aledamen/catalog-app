@@ -3,27 +3,45 @@ import type { CuratedPick } from "@/lib/curated-picks";
 
 type CuratedPicksProps = {
   picks: CuratedPick[];
+  eyebrow: string;
   title: string;
   subtitle: string;
+  whatsappHref: string;
 };
 
-export function CuratedPicks({ picks, title, subtitle }: CuratedPicksProps) {
+export function CuratedPicks({ picks, eyebrow, title, subtitle, whatsappHref }: CuratedPicksProps) {
   if (picks.length === 0) {
     return null;
   }
 
   return (
     <section className="container-shell pt-10">
-      <h2 className="text-xl font-bold tracking-tight text-ink">{title}</h2>
-      {subtitle && (
-        <p className="mt-1 text-sm text-zinc-500 dark:text-slate-400">
-          {subtitle}
-        </p>
-      )}
-      <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {picks.map((pick) => (
-          <CuratedPickCard key={pick.product.id} pick={pick} />
-        ))}
+      <div className="panel overflow-hidden">
+        <div className="px-6 py-6 sm:px-8">
+          {eyebrow && <p className="section-label text-accent-deep">{eyebrow}</p>}
+          <h2 className="mt-2 text-xl font-bold tracking-tight text-ink dark:text-white">{title}</h2>
+          {subtitle && (
+            <p className="mt-1 text-sm text-zinc-500 dark:text-slate-400">{subtitle}</p>
+          )}
+          <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {picks.map((pick) => (
+              <CuratedPickCard key={pick.product.id} pick={pick} />
+            ))}
+          </div>
+        </div>
+        {whatsappHref && (
+          <div className="flex flex-wrap items-center gap-2 border-t border-line bg-mist/60 px-6 py-4 dark:border-[#2D3A5C] dark:bg-[#232B42]/40 sm:px-8">
+            <p className="text-sm text-zinc-500 dark:text-slate-400">¿Ninguno te cierra?</p>
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold text-accent-deep hover:underline"
+            >
+              Preguntanos por WhatsApp &rarr;
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

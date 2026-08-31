@@ -5,6 +5,7 @@ import { getCuratedPicks } from "@/lib/curated-picks";
 import { getProducts } from "@/lib/products";
 import { getSiteConfig } from "@/lib/site-config";
 import { trackView } from "@/lib/track";
+import { buildQuestionHref } from "@/lib/whatsapp";
 
 export const metadata = {
   title: "Catalogo"
@@ -22,6 +23,10 @@ export default async function CatalogPage() {
   const urgencyThreshold = Number(config.stock_urgency_threshold) || 5
   const featuredEnabled = config.featured_section_enabled === 'true'
   const featuredProducts = products.filter(p => p.featured && p.visible)
+  const curatedPicksWhatsappHref = buildQuestionHref(
+    config.whatsapp_number,
+    "Hola! Estoy mirando el catálogo y no sé bien qué combo me conviene, ¿me ayudan a elegir?"
+  )
 
   return (
     <div className="pb-16">
@@ -45,8 +50,10 @@ export default async function CatalogPage() {
 
       <CuratedPicks
         picks={curatedPicks}
+        eyebrow={config.curated_picks_eyebrow}
         title={config.curated_picks_title}
         subtitle={config.curated_picks_subtitle}
+        whatsappHref={curatedPicksWhatsappHref}
       />
 
       {featuredEnabled && featuredProducts.length > 0 && (

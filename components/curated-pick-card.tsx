@@ -40,11 +40,9 @@ export function CuratedPickCard({ pick }: CuratedPickCardProps) {
       <h2 className="text-lg font-bold leading-tight tracking-tight text-ink dark:text-white">
         {pick.headline}
       </h2>
-      {pick.description && (
-        <p className="text-sm leading-relaxed text-zinc-500 dark:text-slate-400">
-          {pick.description}
-        </p>
-      )}
+      <p className="line-clamp-3 min-h-[4.3rem] text-sm leading-relaxed text-zinc-500 dark:text-slate-400">
+        {pick.description}
+      </p>
       <p className="text-xs uppercase tracking-[0.18em] text-zinc-400 dark:text-slate-500">
         {product.name}
       </p>

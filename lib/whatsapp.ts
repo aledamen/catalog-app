@@ -63,6 +63,13 @@ export function buildWhatsAppHref(
   return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }
 
+export function buildQuestionHref(whatsappNumber: string | null, message: string) {
+  const digits = normalizeWhatsAppNumber(whatsappNumber);
+  if (!digits) return "";
+
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+}
+
 export function buildDudaHref(items: CartItem[], whatsappNumber: string | null) {
   const digits = normalizeWhatsAppNumber(whatsappNumber);
   if (!digits) return "";
