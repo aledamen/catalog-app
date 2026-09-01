@@ -4,12 +4,24 @@ import type { CuratedPick } from "@/lib/curated-picks";
 type CuratedPicksProps = {
   picks: CuratedPick[];
   eyebrow: string;
+  eyebrowColor: string;
   title: string;
+  titleColor: string;
   subtitle: string;
+  subtitleColor: string;
   whatsappHref: string;
 };
 
-export function CuratedPicks({ picks, eyebrow, title, subtitle, whatsappHref }: CuratedPicksProps) {
+export function CuratedPicks({
+  picks,
+  eyebrow,
+  eyebrowColor,
+  title,
+  titleColor,
+  subtitle,
+  subtitleColor,
+  whatsappHref,
+}: CuratedPicksProps) {
   if (picks.length === 0) {
     return null;
   }
@@ -18,10 +30,18 @@ export function CuratedPicks({ picks, eyebrow, title, subtitle, whatsappHref }: 
     <section className="container-shell pt-10">
       <div className="panel overflow-hidden">
         <div className="px-6 py-6 sm:px-8">
-          {eyebrow && <p className="section-label text-accent-deep">{eyebrow}</p>}
-          <h2 className="mt-2 text-xl font-bold tracking-tight text-ink dark:text-white">{title}</h2>
+          {eyebrow && (
+            <p className="section-label" style={{ color: eyebrowColor }}>
+              {eyebrow}
+            </p>
+          )}
+          <h2 className="mt-2 text-xl font-bold tracking-tight" style={{ color: titleColor }}>
+            {title}
+          </h2>
           {subtitle && (
-            <p className="mt-1 text-sm text-zinc-500 dark:text-slate-400">{subtitle}</p>
+            <p className="mt-1 text-sm" style={{ color: subtitleColor }}>
+              {subtitle}
+            </p>
           )}
           <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {picks.map((pick) => (

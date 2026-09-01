@@ -51,8 +51,11 @@ export default async function CatalogPage() {
       <CuratedPicks
         picks={curatedPicks}
         eyebrow={config.curated_picks_eyebrow}
+        eyebrowColor={config.curated_picks_eyebrow_color}
         title={config.curated_picks_title}
+        titleColor={config.curated_picks_title_color}
         subtitle={config.curated_picks_subtitle}
+        subtitleColor={config.curated_picks_subtitle_color}
         whatsappHref={curatedPicksWhatsappHref}
       />
 

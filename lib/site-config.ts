@@ -24,8 +24,11 @@ export type SiteConfig = {
   featured_section_enabled: string
   featured_section_title: string
   curated_picks_eyebrow: string
+  curated_picks_eyebrow_color: string
   curated_picks_title: string
+  curated_picks_title_color: string
   curated_picks_subtitle: string
+  curated_picks_subtitle_color: string
 }
 
 const FALLBACK: SiteConfig = {
@@ -52,8 +55,11 @@ const FALLBACK: SiteConfig = {
   featured_section_enabled: 'false',
   featured_section_title: 'Destacados',
   curated_picks_eyebrow: 'Si no sabés qué comprar',
+  curated_picks_eyebrow_color: '#169FB6',
   curated_picks_title: 'Empezá por acá',
+  curated_picks_title_color: '#0A0A0A',
   curated_picks_subtitle: 'Combos armados para arrancar sin vueltas.',
+  curated_picks_subtitle_color: '#71717A',
 }
 
 export async function getSiteConfig(): Promise<SiteConfig> {
