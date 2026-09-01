@@ -36,10 +36,13 @@ export function CuratedPickCard({ pick }: CuratedPickCardProps) {
   const soldOut = product.availableStock === 0 || selectedVariant.stock === 0;
 
   return (
-    <article className="panel flex h-full flex-col gap-3 p-6">
+    <article className="flex h-full flex-col gap-3 rounded-2xl border border-accent/20 bg-accent/5 p-6 dark:border-accent/30 dark:bg-accent/10">
       <h2 className="text-lg font-bold leading-tight tracking-tight text-ink dark:text-white">
         {pick.headline}
       </h2>
+      {pick.subheadline && (
+        <p className="-mt-2 text-sm font-medium text-accent-deep">{pick.subheadline}</p>
+      )}
       <p className="line-clamp-3 min-h-[4.3rem] text-sm leading-relaxed text-zinc-500 dark:text-slate-400">
         {pick.description}
       </p>
@@ -55,8 +58,13 @@ export function CuratedPickCard({ pick }: CuratedPickCardProps) {
             variants={product.variants}
           />
         ) : (
-          <div className="flex h-12 w-full items-center rounded-lg border border-zinc-200 bg-zinc-50 px-4 text-sm text-zinc-400 dark:border-dk-border dark:bg-dk-elevated dark:text-slate-400">
-            {variantLabel || "Sin sabor"}
+          <div>
+            <p className="mb-2 block text-xs uppercase tracking-[0.24em] text-zinc-500 dark:text-slate-400">
+              Variante
+            </p>
+            <div className="flex h-12 w-full items-center rounded-lg border border-zinc-200 bg-zinc-50 px-4 text-sm text-zinc-400 dark:border-dk-border dark:bg-dk-elevated dark:text-slate-400">
+              {variantLabel || "Sin sabor"}
+            </div>
           </div>
         )}
       </div>

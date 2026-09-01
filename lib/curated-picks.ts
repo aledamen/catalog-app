@@ -6,6 +6,7 @@ const INVENTORY_API = process.env.NEXT_PUBLIC_INVENTORY_API_URL ?? "http://local
 type ApiCuratedPick = {
   position: number;
   headline: string;
+  subheadline: string | null;
   description: string | null;
   product: ApiProduct;
 };
@@ -13,6 +14,7 @@ type ApiCuratedPick = {
 export type CuratedPick = {
   position: number;
   headline: string;
+  subheadline: string | null;
   description: string | null;
   product: Product;
 };
@@ -33,6 +35,7 @@ export async function getCuratedPicks(): Promise<CuratedPick[]> {
     return data.map((pick) => ({
       position: pick.position,
       headline: pick.headline,
+      subheadline: pick.subheadline,
       description: pick.description,
       product: mapApiProduct(pick.product),
     }));
