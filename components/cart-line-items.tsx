@@ -13,7 +13,10 @@ export function CartLineItems() {
   return (
     <div className="space-y-4">
       {items.map((item) => (
-        <article className="panel flex flex-col gap-4 p-4" key={item.sku}>
+        <article
+          className="flex flex-col gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-4 dark:border-accent/30 dark:bg-accent/10"
+          key={item.sku}
+        >
           <div className="flex gap-4">
             <div className="relative aspect-square w-20 shrink-0 overflow-hidden rounded-xl border border-zinc-200 bg-mist dark:border-dk-border dark:bg-dk-elevated">
               <Image
